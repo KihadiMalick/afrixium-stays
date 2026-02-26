@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-white text-dark-900 font-sans;
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Bouton principal */
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-white font-semibold 
+           px-6 py-3 rounded-xl transition-all duration-200 
+           shadow-md hover:shadow-glow active:scale-95;
+  }
+
+  /* Bouton secondaire */
+  .btn-secondary {
+    @apply bg-white hover:bg-dark-50 text-dark-800 font-semibold 
+           px-6 py-3 rounded-xl border border-dark-200 
+           transition-all duration-200 active:scale-95;
+  }
+
+  /* Bouton outline */
+  .btn-outline {
+    @apply bg-transparent hover:bg-brand-50 text-brand-600 font-semibold 
+           px-6 py-3 rounded-xl border-2 border-brand-500 
+           transition-all duration-200;
+  }
+
+  /* Input standard */
+  .input-base {
+    @apply w-full px-4 py-3 rounded-xl border border-dark-200 
+           bg-white text-dark-900 placeholder-dark-400
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
+           transition-all duration-200;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white rounded-2xl shadow-card overflow-hidden 
+           transition-all duration-200 hover:shadow-premium;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  /* Conteneur page */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-16 md:py-24;
+  }
+}
+
+@layer utilities {
+  /* Texte gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-500 to-gold-500 bg-clip-text text-transparent;
+  }
+
+  /* Scrollbar cachée */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
