@@ -13,7 +13,7 @@ export const config = {
     webhookSecret:   process.env.STRIPE_WEBHOOK_SECRET ?? "",
   },
   app: {
-    url:  process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+    url:  process.env.NEXT_PUBLIC_APP_URL ?? "https://rwpljacthttfetwlinow.supabase.co",
     name: process.env.NEXT_PUBLIC_APP_NAME ?? "AfriXium Stays",
   },
 } as const;
