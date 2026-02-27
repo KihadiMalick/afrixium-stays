@@ -1,7 +1,6 @@
 import { getSupabaseServerClient } from "@/supabase/server";
 import type { ChatThread, ChatMessage } from "@/types/chat.types";
 
-// Threads d'un utilisateur (sa boîte de réception)
 export async function getUserThreads(userId: string): Promise<ChatThread[]> {
   const supabase = getSupabaseServerClient();
 
@@ -15,10 +14,7 @@ export async function getUserThreads(userId: string): Promise<ChatThread[]> {
   return (data ?? []) as ChatThread[];
 }
 
-// Messages d'un thread
-export async function getThreadMessages(
-  threadId: string
-): Promise<ChatMessage[]> {
+export async function getThreadMessages(threadId: string): Promise<ChatMessage[]> {
   const supabase = getSupabaseServerClient();
 
   const { data, error } = await supabase
@@ -31,16 +27,21 @@ export async function getThreadMessages(
   return (data ?? []) as ChatMessage[];
 }
 
-// Marque les messages d'un thread comme lus
 export async function markThreadAsRead(
   threadId: string,
   role: "guest" | "admin"
 ) {
   const supabase = getSupabaseServerClient();
-  const field = role === "guest" ? "is_read_guest" : "is_read_admin";
 
-  await supabase
-    .from("chat_threads")
-    .update({ [field]: true })
-    .eq("id", threadId);
+  if (role === "guest") {
+    await supabase
+      .from("chat_threads")
+      .update({ is_read_guest: true })
+      .eq("id", threadId);
+  } else {
+    await supabase
+      .from("chat_threads")
+      .update({ is_read_admin: true })
+      .eq("id", threadId);
+  }
 }
