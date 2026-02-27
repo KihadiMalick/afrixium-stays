@@ -1,16 +1,13 @@
-import { PageWrapper } from "../../src/components/layout/PageWrapper";
-import { getCurrentProfile } from "../../src/supabase/queries/users.queries";
-
-export default async function MarketingLayout({
+export default function MarketingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const profile = await getCurrentProfile();
-
   return (
-    <PageWrapper user={profile} fullWidth>
-      {children}
-    </PageWrapper>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
+        {children}
+      </main>
+    </div>
   );
 }
