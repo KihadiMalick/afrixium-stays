@@ -1,5 +1,8 @@
 import { getSupabaseServerClient } from "@/supabase/server";
 import type { Profile, UpdateProfileInput } from "@/types/user.types";
+import type { Database } from "@/types/database.types";
+
+type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"];
 
 // Récupère le profil de l'utilisateur connecté
 export async function getCurrentProfile(): Promise<Profile | null> {
@@ -39,9 +42,11 @@ export async function updateProfile(
 ): Promise<Profile | null> {
   const supabase = getSupabaseServerClient();
 
-  const { data, error } = await supabase
+  const profileUpdate: ProfileUpdate = { ...updates, updated_at: new Date().toISOString() };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any)
     .from("profiles")
-    .update({ ...updates, updated_at: new Date().toISOString() })
+    .update(profileUpdate)
     .eq("id", userId)
     .select()
     .single();

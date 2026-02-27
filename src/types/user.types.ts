@@ -15,7 +15,7 @@ export interface Profile {
 }
 
 // Ce qu'on affiche publiquement d'un utilisateur
-export type PublicProfile = Pick
+export type PublicProfile = Pick<
   Profile,
   "id" | "first_name" | "last_name" | "avatar_url" | "is_verified"
 >;

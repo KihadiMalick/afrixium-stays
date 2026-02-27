@@ -49,6 +49,7 @@ export interface Database {
           is_verified?: boolean;
           updated_at?:  string;
         };
+        Relationships: [];
       };
 
       // ---- LISTINGS ----
@@ -119,6 +120,7 @@ export interface Database {
           is_featured?:     boolean;
           updated_at?:      string;
         };
+        Relationships: [];
       };
 
       // ---- BOOKINGS ----
@@ -162,6 +164,7 @@ export interface Database {
           stripe_payment_intent_id?: string | null;
           updated_at?:              string;
         };
+        Relationships: [];
       };
 
       // ---- REWARDS_BALANCES ----
@@ -187,6 +190,7 @@ export interface Database {
           lifetime_points?: number;
           updated_at?:      string;
         };
+        Relationships: [];
       };
 
       // ---- REWARDS_TRANSACTIONS ----
@@ -209,6 +213,7 @@ export interface Database {
           description: string;
         };
         Update: Record<string, never>;
+        Relationships: [];
       };
 
       // ---- CHAT_THREADS ----
@@ -244,6 +249,7 @@ export interface Database {
           is_read_admin?:   boolean;
           updated_at?:      string;
         };
+        Relationships: [];
       };
 
       // ---- CHAT_MESSAGES ----
@@ -268,6 +274,7 @@ export interface Database {
         Update: {
           is_read?: boolean;
         };
+        Relationships: [];
       };
 
     };

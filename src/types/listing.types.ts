@@ -28,18 +28,18 @@ export interface Listing {
   description:      string;
   property_type:    string;
   status:           ListingStatus;
-  location:         string;       // Adresse complète
+  location:         string;
   city:             string;
   country:          string;
   latitude:         number | null;
   longitude:        number | null;
-  price_per_night:  number;       // En FCFA ou devise locale
+  price_per_night:  number;
   cleaning_fee:     number;
   max_guests:       number;
   bedrooms:         number;
   bathrooms:        number;
   amenities:        Amenity[];
-  images:           string[];     // URLs Supabase Storage
+  images:           string[];
   cover_image:      string | null;
   is_featured:      boolean;
   min_stay_nights:  number;
@@ -56,7 +56,7 @@ export interface ListingWithHost extends Listing {
 }
 
 // Carte de listing pour les résultats de recherche (données allégées)
-export type ListingCard = Pick
+export type ListingCard = Pick<
   Listing,
   | "id"
   | "slug"
