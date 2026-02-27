@@ -11,7 +11,7 @@ export async function getUserThreads(userId: string): Promise<ChatThread[]> {
     .order("last_message_at", { ascending: false });
 
   if (error) throw new Error(error.message);
-  return (data ?? []) as ChatThread[];
+  return (data ?? []) as unknown as ChatThread[];
 }
 
 export async function getThreadMessages(threadId: string): Promise<ChatMessage[]> {
@@ -24,7 +24,7 @@ export async function getThreadMessages(threadId: string): Promise<ChatMessage[]
     .order("created_at", { ascending: true });
 
   if (error) throw new Error(error.message);
-  return (data ?? []) as ChatMessage[];
+  return (data ?? []) as unknown as ChatMessage[];
 }
 
 export async function markThreadAsRead(
@@ -33,15 +33,13 @@ export async function markThreadAsRead(
 ) {
   const supabase = getSupabaseServerClient();
 
-  if (role === "guest") {
-    await supabase
-      .from("chat_threads")
-      .update({ is_read_guest: true })
-      .eq("id", threadId);
-  } else {
-    await supabase
-      .from("chat_threads")
-      .update({ is_read_admin: true })
-      .eq("id", threadId);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const update: any = role === "guest"
+    ? { is_read_guest: true }
+    : { is_read_admin: true };
+
+  await supabase
+    .from("chat_threads")
+    .update(update)
+    .eq("id", threadId);
 }
