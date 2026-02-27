@@ -1,4 +1,4 @@
-import type { BookingStatus } from "@lib/constants";
+import type { BookingStatus } from "@/lib/constants";
 import type { ListingCard } from "./listing.types";
 import type { PublicProfile } from "./user.types";
 
