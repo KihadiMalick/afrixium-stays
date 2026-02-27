@@ -1,4 +1,4 @@
-import type { UserRole } from "@lib/constants";
+import type { UserRole } from "@/lib/constants";
 
 // Profil utilisateur stocké dans la table `profiles` de Supabase
 export interface Profile {
