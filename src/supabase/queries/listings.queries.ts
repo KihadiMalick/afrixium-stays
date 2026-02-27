@@ -1,8 +1,7 @@
 import { getSupabaseServerClient } from "@/supabase/server";
 import type { SearchFilters, PaginatedListings, ListingWithHost } from "@/types/listing.types";
-import { LISTINGS_PER_PAGE } from "@lib/constants";
+import { LISTINGS_PER_PAGE } from "@/lib/constants";
 
-// Récupère les listings publiés avec filtres et pagination
 export async function getListings(filters: SearchFilters = {}): Promise<PaginatedListings> {
   const supabase = getSupabaseServerClient();
   const page = filters.page ?? 1;
@@ -26,10 +25,10 @@ export async function getListings(filters: SearchFilters = {}): Promise<Paginate
       `city.ilike.%${filters.location}%,country.ilike.%${filters.location}%,location.ilike.%${filters.location}%`
     );
   }
-  if (filters.guests)    query = query.gte("max_guests",       filters.guests);
-  if (filters.min_price) query = query.gte("price_per_night",  filters.min_price);
-  if (filters.max_price) query = query.lte("price_per_night",  filters.max_price);
-  if (filters.type)      query = query.eq("property_type",     filters.type);
+  if (filters.guests)    query = query.gte("max_guests",      filters.guests);
+  if (filters.min_price) query = query.gte("price_per_night", filters.min_price);
+  if (filters.max_price) query = query.lte("price_per_night", filters.max_price);
+  if (filters.type)      query = query.eq("property_type",    filters.type);
 
   const { data, error, count } = await query;
   if (error) throw new Error(error.message);
@@ -42,7 +41,6 @@ export async function getListings(filters: SearchFilters = {}): Promise<Paginate
   };
 }
 
-// Récupère un listing par son slug (page de détail)
 export async function getListingBySlug(slug: string): Promise<ListingWithHost | null> {
   const supabase = getSupabaseServerClient();
 
@@ -62,7 +60,6 @@ export async function getListingBySlug(slug: string): Promise<ListingWithHost | 
   return data as unknown as ListingWithHost;
 }
 
-// Récupère les listings d'un hôte
 export async function getHostListings(hostId: string) {
   const supabase = getSupabaseServerClient();
 
@@ -76,7 +73,6 @@ export async function getHostListings(hostId: string) {
   return data ?? [];
 }
 
-// Récupère les listings mis en avant pour la homepage
 export async function getFeaturedListings(limit = 6) {
   const supabase = getSupabaseServerClient();
 
