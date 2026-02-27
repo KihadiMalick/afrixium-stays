@@ -1,4 +1,4 @@
-import type { ListingStatus } from "@lib/constants";
+import type { ListingStatus } from "@/lib/constants";
 import type { PublicProfile } from "./user.types";
 
 // Équipements disponibles
