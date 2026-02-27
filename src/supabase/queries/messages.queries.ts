@@ -1,5 +1,8 @@
 import { getSupabaseServerClient } from "@/supabase/server";
 import type { ChatThread, ChatMessage } from "@/types/chat.types";
+import type { Database } from "@/types/database.types";
+
+type ChatThreadUpdate = Database["public"]["Tables"]["chat_threads"]["Update"];
 
 export async function getUserThreads(userId: string): Promise<ChatThread[]> {
   const supabase = getSupabaseServerClient();
@@ -33,12 +36,12 @@ export async function markThreadAsRead(
 ) {
   const supabase = getSupabaseServerClient();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const update: any = role === "guest"
+  const update: ChatThreadUpdate = role === "guest"
     ? { is_read_guest: true }
     : { is_read_admin: true };
 
-  await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (supabase as any)
     .from("chat_threads")
     .update(update)
     .eq("id", threadId);
